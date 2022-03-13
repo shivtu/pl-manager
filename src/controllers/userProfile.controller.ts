@@ -20,3 +20,12 @@ export const createUserProfile = asyncHandler(
     res.status(201).json(data);
   }
 );
+
+//TODO: use createResponse function instead of sending response directly
+export const getCurrentUserProfile = asyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
+    //@ts-ignore
+    const data = await getuserProfilesFromDB({ _id: req.user.userProfile });
+    res.status(200).json(data);
+  }
+);

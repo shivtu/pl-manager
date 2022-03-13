@@ -4,8 +4,9 @@ import {
   getProjects,
   updateProject,
 } from '../controllers/project.controller';
+import { protect } from '../middleware/auth';
 
 export const projectRouter = Router();
-projectRouter.route('/').get(getProjects);
-projectRouter.route('/').post(createProject);
-projectRouter.route('/update/:projectId').put(updateProject);
+projectRouter.route('/projects/find').get(protect, getProjects);
+projectRouter.route('/projects/create').post(protect, createProject);
+projectRouter.route('/projects/update/:projectId').put(updateProject);

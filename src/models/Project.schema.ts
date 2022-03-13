@@ -1,8 +1,7 @@
 import { Schema, model } from 'mongoose';
 import { PROJECT_STAGE, PROJECT_STATUS, PROJECT_TYPE } from '../types/enums';
-import { ICurrentOwner, IProject } from '../types/types';
+import { IProject } from '../types/types';
 import { validateCurrentOwner } from '../utils/validations';
-import { UserProfileModel } from './UserProfile.schema';
 
 const validaterequirementList = (requirementList: string[]) => {
   return (

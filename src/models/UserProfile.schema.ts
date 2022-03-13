@@ -21,6 +21,9 @@ const validateUsersGovDocType = (doc: IUserGovId) => {
   }
 };
 
+const validateUserPhoneNumber = (phoneNumber: number) =>
+  phoneNumber.toString().length === 10;
+
 const UserProfileSchema = new Schema<IUserProfile>({
   userName: {
     type: String,
@@ -42,6 +45,7 @@ const UserProfileSchema = new Schema<IUserProfile>({
     type: Number,
     required: [true, 'User phone number is required'],
     unique: true,
+    validate: validateUserPhoneNumber,
   },
   userAlternateNumber: {
     type: Number,

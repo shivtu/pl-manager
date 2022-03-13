@@ -91,18 +91,40 @@ export interface IUserRolesAndAccessGroups {
   rolesAndAccess: RoleAndAccessGroupsTypes[];
 }
 
+export type UserRoleTypes =
+  | 'admin'
+  | 'designer'
+  | 'production'
+  | 'assembly'
+  | 'purchases';
+
 export interface IUser {
   userName: string;
   userEmail: string;
   password: string;
   isActive: boolean;
-  userRoles: string[];
+  userRole: UserRoleTypes;
   newPassword: boolean;
   userProfile: String;
+}
+
+export interface IUserAccess {
+  admin: string[];
+  designer: string[];
+  production: string[];
+  assembly: string[];
+  purchases: string[];
 }
 
 export interface IServerResponse {
   success: boolean;
   count?: number;
   data: unknown;
+}
+
+export interface IReqUser {
+  userRole: UserRoleTypes;
+  _id: string;
+  userEmail: string;
+  isActive: boolean;
 }

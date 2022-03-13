@@ -21,7 +21,7 @@ export const errorHandler = (
     error = new ErrorResponse(message, 404);
   }
 
-  res.status(error.statusCode || 500).json({
+  res.status(error.statusCode || 500).send({
     success: false,
     error: error.message,
   });

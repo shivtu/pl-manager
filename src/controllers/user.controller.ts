@@ -5,8 +5,9 @@ import {
   getUserFromDB,
   updateUserPasswordInDB,
   resetUserPasswordInDB,
-  getUserLoginData,
+  getUserLoginDataFromDB,
 } from '../services/user.services';
+import { createUserProfileInDB } from '../services/userProfile.services';
 
 /**TODO: To be accessed only by admin */
 export const getUsers = asyncHandler(
@@ -36,7 +37,7 @@ export const updateUserPassword = asyncHandler(
 
 export const loginUser = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
-    const token = await getUserLoginData(req.body);
+    const token = await getUserLoginDataFromDB(req.body);
     const cookieOptions: CookieOptions = {
       expires: new Date(Date.now() + `${process.env.JWT_COOKIE_EXPIRE}`), // 1 day, same as jwt token expire
       httpOnly: true,
@@ -52,6 +53,13 @@ export const loginUser = asyncHandler(
 export const resetPassword = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     const data = await resetUserPasswordInDB(req.body);
+    res.status(201).json(data);
+  }
+);
+
+export const createUserProfile = asyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const data = await createUserProfileInDB(req.body);
     res.status(201).json(data);
   }
 );

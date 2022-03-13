@@ -22,8 +22,8 @@ const UserSchema = new Schema<IUser>({
     type: Boolean,
     default: true,
   },
-  userRoles: {
-    type: [String],
+  userRole: {
+    type: String,
     required: true,
   },
   newPassword: {

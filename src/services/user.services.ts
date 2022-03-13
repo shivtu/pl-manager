@@ -1,10 +1,11 @@
 import { createResponse } from '../utils/createResponse';
 import { UserModel } from '../models/User.schema';
-import { IUser } from '../types/types';
+import { IUser, IUserProfile } from '../types/types';
 import { ErrorResponse } from '../utils/ErrorResponse';
 import { matchPassword } from '../utils/userHelper';
 import { UNAUTHORIZED } from '../constants';
-import { CookieParseOptions } from 'cookie-parser';
+import { UserProfileModel } from '../models/UserProfile.schema';
+import { FilterQuery } from 'mongoose';
 
 /**TODO: To be accessed only by admin */
 export const getUserFromDB = async (reqQuery: any) => {
@@ -17,6 +18,11 @@ export const getUserFromDB = async (reqQuery: any) => {
   return createResponse(users);
 };
 
+export const createUserProfileInDB = async (reqBody: IUserProfile) => {
+  const newUserProfile = UserProfileModel.create(reqBody);
+  return newUserProfile;
+};
+
 /**TODO: To be accessed only by admin */
 export const createUserInDB = async (reqBody: IUser) => {
   const newUser = await UserModel.create(reqBody);
@@ -26,21 +32,23 @@ export const createUserInDB = async (reqBody: IUser) => {
 
 /**TODO: To be accessed only by admin */
 export const updateUserPasswordInDB = async (userId: string, reqBody: any) => {
-  const updatedPassword = await UserModel.findByIdAndUpdate(userId, {
+  await UserModel.findByIdAndUpdate(userId, {
     password: reqBody.password,
     newPassword: false,
-  }).select('newPassword');
+  });
 
-  return updatedPassword;
+  return { sucess: true };
 };
 
 export const resetUserPasswordInDB = async (reqBody: {
-  userId: string;
-  oldPassword: string;
+  userEmail: FilterQuery<IUser>;
+  currentPassword: string;
   password: string;
 }) => {
-  const user = await UserModel.findById(reqBody.userId).select('password');
-  const match = await matchPassword(user, reqBody.password);
+  const user = await UserModel.findOne({ userEmail: reqBody.userEmail }).select(
+    'password'
+  );
+  const match = await matchPassword(user, reqBody.currentPassword);
 
   if (!user) {
     throw new ErrorResponse(UNAUTHORIZED, 401);
@@ -50,28 +58,29 @@ export const resetUserPasswordInDB = async (reqBody: {
     throw new ErrorResponse(UNAUTHORIZED, 400);
   }
 
-  const updatedUserPassword = await updateUserPasswordInDB(reqBody.userId, {
+  await UserModel.findByIdAndUpdate(user, {
     password: reqBody.password,
+    newPassword: false,
   });
 
   return { sucess: true };
 };
 
 const getUserByEmailFromDB = async (email: string) => {
-  const loginData = await UserModel.findOne({
+  const user = await UserModel.findOne({
     userEmail: email,
   }).select('userEmail password newPassword');
-  return loginData;
+  return user;
 };
 
-/**Login user and send JWT token with cokkie */
-export const getUserLoginData = async (reqBody: any) => {
+/**Login user and send JWT token with cookies */
+export const getUserLoginDataFromDB = async (reqBody: any) => {
   const user = await getUserByEmailFromDB(reqBody.userEmail);
 
   if (user?.newPassword)
     throw new ErrorResponse('User must reset password before first login', 400);
 
-  if (!user) throw new ErrorResponse(UNAUTHORIZED, 400);
+  if (!user) throw new ErrorResponse(UNAUTHORIZED, 401);
 
   /**Check if password matches */
   const matched = await matchPassword(user, reqBody.password);
