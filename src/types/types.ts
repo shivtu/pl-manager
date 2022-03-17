@@ -31,6 +31,7 @@ export interface IProjectComponent {
 export interface IProjectDesign {
   projectId: IProject;
   components: ProjectComponentType[];
+  projectRequirements: string[];
   status: PROJECT_STATUS;
   createdAt: Date;
   completedAt: Date;
@@ -119,7 +120,7 @@ export interface IUserAccess {
 export interface IServerResponse {
   success: boolean;
   count?: number;
-  data: unknown;
+  result: any;
 }
 
 export interface IReqUser {

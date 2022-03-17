@@ -14,15 +14,24 @@ const ProjectDesignSchema = new Schema<IProjectDesign>({
   },
   components: {
     type: [ProjectComponentType],
-    required: [true, 'Desing components of a project are required'],
-    validate: [
-      minProjectComponents,
-      'There must be atleast one component in design phase',
+    // required: [true, 'Desing components of a project are required'],
+    // validate: [
+    //   minProjectComponents,
+    //   'There must be atleast one component in design phase',
+    // ],
+  },
+  projectRequirements: {
+    type: [String],
+    required: [
+      true,
+      'Requirements of the project are required for design phase',
     ],
+    validate: (val: Array<String>) => val.length > 0,
   },
   status: {
     type: String,
     enum: PROJECT_STATUS,
+    default: PROJECT_STATUS.CREATED,
   },
   createdAt: {
     type: Date,

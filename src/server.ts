@@ -14,7 +14,7 @@ import { userRouter } from './routes/user.route';
 
 connectDB();
 
-dotenv.config({ path: path.join(__dirname, '..config/dev.config.env') });
+dotenv.config({ path: path.join(__dirname, '..config/config.env') });
 
 const app = express();
 

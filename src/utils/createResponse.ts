@@ -8,12 +8,12 @@ export const createResponse = (res: unknown): IServerResponse => {
     response = {
       success: true,
       count,
-      data: res,
+      result: res,
     };
   } else {
     response = {
       success: true,
-      data: res,
+      result: res,
     };
   }
 

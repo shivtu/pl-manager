@@ -6,5 +6,5 @@ import {
 } from '../controllers/projectDesign.controller';
 
 export const projectDesignRouter = Router();
-projectDesignRouter.route('/designs').get(getProjectDesign);
-projectDesignRouter.route('/').post(createProjectDesign);
+projectDesignRouter.route('/designs/find').get(getProjectDesign);
+projectDesignRouter.route('/designs/create').post(createProjectDesign);
