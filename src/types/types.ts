@@ -29,9 +29,23 @@ export interface IProjectComponent {
 }
 
 export interface IProjectDesign {
-  projectId: IProject;
+  parentProjectId: IProject;
+  parentProjectName: string;
   components: ProjectComponentType[];
   projectRequirements: string[];
+  status: PROJECT_STATUS;
+  createdAt: Date;
+  completedAt: Date;
+  currentOwner: ICurrentOwner;
+}
+
+export interface IProjectAssemblyParentProjectRef {
+  projectId: IProject;
+  projectName: string;
+}
+
+export interface IProjectAssembly {
+  parentProject: IProjectAssemblyParentProjectRef;
   status: PROJECT_STATUS;
   createdAt: Date;
   completedAt: Date;

@@ -10,7 +10,7 @@ export const getProjectDesignsFromDB = async (reqQuery: any) => {
 };
 
 export const createProjectDesignInDB = async (reqBody: IProjectDesign) => {
-  const projectId = reqBody.projectId;
+  const projectId = reqBody.parentProjectId;
 
   const designForProject = await getProjectsFromDB({ _id: projectId });
 
@@ -18,6 +18,7 @@ export const createProjectDesignInDB = async (reqBody: IProjectDesign) => {
   if (designForProject.success) {
     Object.assign(reqBody, {
       projectRequirements: designForProject.result[0].projectRequirements,
+      parentProjectName: designForProject.result[0].projectName,
     });
   }
 

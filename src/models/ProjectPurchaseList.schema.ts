@@ -2,30 +2,34 @@ import { Schema, model } from 'mongoose';
 import { PROJECT_STATUS } from '../types/enums';
 import { IProjectPurchase, IProjectPurchaseList } from '../types/types';
 import { validateCurrentOwner } from '../utils/validations';
-// import { CurrentOwnerModel } from './commonSchemas/CurrentOwnerSchema';
 
-const ProjectPurchaseSchema = new Schema<IProjectPurchase>({
-  componentName: {
-    type: String,
-    required: [true, 'Component name is required'],
-  },
-  purchaseOrder: {
-    type: String,
-  },
-  purchaseStatus: {
-    type: Boolean,
-    default: false,
-  },
-});
+const validatePurchaseList = (list: IProjectPurchase[]) => {
+  if (Array.isArray(list)) {
+    const listValidations = list.map(
+      (val) =>
+        val.componentName &&
+        val.purchaseOrder &&
+        typeof val.componentName === 'string' &&
+        typeof val.purchaseOrder === 'string' &&
+        !val.purchaseStatus &&
+        typeof val.purchaseStatus === 'boolean'
+    );
+
+    return !listValidations.includes(false);
+  }
+
+  return false;
+};
 
 const ProjectPurchaseListSchema = new Schema<IProjectPurchaseList>({
   projectId: {
     type: Schema.Types.ObjectId,
-    required: [true, 'Parent project is required to create a design task'],
+    required: [true, 'Parent project is required to create a purchase task'],
   },
   projectPurchaseList: {
-    type: [ProjectPurchaseSchema],
+    type: [Object],
     required: [true, 'Project purchase list must have at least one item'],
+    validate: [validatePurchaseList, ''],
   },
   createdAt: {
     type: Date,

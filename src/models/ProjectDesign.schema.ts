@@ -1,20 +1,26 @@
 import { Schema, model } from 'mongoose';
 import { PROJECT_STATUS } from '../types/enums';
-import { IProjectDesign, IProjectComponent } from '../types/types';
+import { IProjectDesign } from '../types/types';
 import { ProjectComponentType } from '../types/custom-mongoose-schema-types/ProjectComponentType';
 import { validateCurrentOwner } from '../utils/validations';
 
-const minProjectComponents = (val: Array<IProjectComponent>) =>
-  val.length !== 0;
+// const minProjectComponents = (val: Array<IProjectComponent>) =>
+//   Array.isArray(val);
 
 const ProjectDesignSchema = new Schema<IProjectDesign>({
-  projectId: {
+  parentProjectId: {
     type: Schema.Types.ObjectId,
-    required: [true, 'Parent project is required to create a design task'],
+    required: [true, 'Parent project id is required to create a design task'],
+  },
+  // This value will be inserted while creating project-design
+  parentProjectName: {
+    type: String,
+    required: [true, 'Parent project name is required'],
   },
   components: {
     type: [ProjectComponentType],
-    // required: [true, 'Desing components of a project are required'],
+    default: [],
+    // required: false,
     // validate: [
     //   minProjectComponents,
     //   'There must be atleast one component in design phase',
