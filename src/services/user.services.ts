@@ -25,6 +25,11 @@ export const createUserProfileInDB = async (reqBody: IUserProfile) => {
 
 /**TODO: To be accessed only by admin */
 export const createUserInDB = async (reqBody: IUser) => {
+  const userProfile = await UserProfileModel.findById(reqBody.userProfile);
+
+  if (!userProfile)
+    throw new ErrorResponse('Unable to find the user profile', 401);
+
   const newUser = await UserModel.create(reqBody);
 
   return createResponse(newUser);

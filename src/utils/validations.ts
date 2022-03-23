@@ -5,8 +5,8 @@ export const validateCurrentOwner = async (currentOwner: ICurrentOwner) => {
   const owner = await UserProfileModel.findById(currentOwner.userId);
   return (
     owner?._id.toString() === currentOwner.userId &&
-    owner.userName === currentOwner.name &&
-    owner.userEmail === currentOwner.email &&
-    owner.userPhoneNumber === currentOwner.phoneNumber
+    owner.userName === currentOwner.userName &&
+    owner.userEmail === currentOwner.userEmail &&
+    owner.userPhoneNumber === currentOwner.userPhoneNumber
   );
 };

@@ -4,9 +4,9 @@ import { GOV_DOC, PROJECT_STAGE, PROJECT_STATUS, PROJECT_TYPE } from './enums';
 
 export interface ICurrentOwner {
   userId: string;
-  name: string;
-  email: string;
-  phoneNumber: number;
+  userName: string;
+  userEmail: string;
+  userPhoneNumber: number;
 }
 
 export interface IProject {
@@ -95,6 +95,8 @@ export interface IUserGovId {
 export interface IUserProfile {
   userName: string;
   userEmail: string;
+  isActive: boolean;
+  userRole: string;
   userPhoneNumber: number;
   userAlternateNumber?: number;
   userAddress: string;

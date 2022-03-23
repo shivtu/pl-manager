@@ -41,6 +41,14 @@ const UserProfileSchema = new Schema<IUserProfile>({
       'Please add a valid email address',
     ],
   },
+  isActive: {
+    type: Boolean,
+    default: true,
+  },
+  userRole: {
+    type: String,
+    required: true,
+  },
   userPhoneNumber: {
     type: Number,
     required: [true, 'User phone number is required'],

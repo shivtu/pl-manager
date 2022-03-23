@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import { UNAUTHORIZED } from '../constants';
-import { UserModel } from '../models/User.schema';
 import { UserProfileModel } from '../models/UserProfile.schema';
 import { IReqUser, UserRoleTypes } from '../types/types';
 import { ErrorResponse } from '../utils/ErrorResponse';
@@ -70,33 +69,21 @@ export const protect = asyncHandler(
         `${process.env.JWT_SECRET}`
       );
 
-      const user = await UserModel.findById(decoded._id).select(
-        'userProfile userRole userEmail isActive'
-      );
       const userProfile = await UserProfileModel.findOne({
-        userEmail: user?.userEmail,
+        userEmail: decoded?.userEmail,
       });
 
       /**Asign a user object to req */
-      Object.assign(req, {
-        user: {
-          userId: userProfile?._id,
-          name: userProfile?.userName,
-          email: userProfile?.userEmail,
-          phoneNumber: userProfile?.userPhoneNumber,
-          isActive: user?.isActive,
-          userRole: user?.userRole,
-        },
-      });
+      Object.assign(req, { userProfile });
 
       //@ts-ignore
-      if (isAuthorized(req.path, req.user)) {
+      if (isAuthorized(req.path, req.userProfile)) {
         next();
       } else {
         throw new ErrorResponse(UNAUTHORIZED, 401);
       }
     } catch (error) {
-      console.log('ERRRRRR:: ', error);
+      console.log('ERROR:: ', error);
       throw new ErrorResponse(UNAUTHORIZED, 401);
     }
   }
@@ -105,6 +92,6 @@ export const protect = asyncHandler(
 export const getCurrentLoggedInUer = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     //@ts-ignore
-    res.send({ success: true, user: req.user });
+    res.send({ success: true, user: req.userProfile });
   }
 );
