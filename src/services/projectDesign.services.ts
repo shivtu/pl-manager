@@ -1,8 +1,8 @@
 import { ProjectDesignModel } from '../models/ProjectDesign.schema';
 import { createResponse } from '../utils/createResponse';
 import { IProjectDesign } from '../types/types';
-import { getProjectsFromDB } from './project.services';
 import { ErrorResponse } from '../utils/ErrorResponse';
+import { ProjectModel } from '../models/Project.schema';
 
 export const getProjectDesignsFromDB = async (reqQuery: any) => {
   const projectDesigns = await ProjectDesignModel.find(reqQuery);
@@ -13,16 +13,16 @@ export const getProjectDesignsFromDB = async (reqQuery: any) => {
 export const createProjectDesignInDB = async (reqBody: IProjectDesign) => {
   const projectId = reqBody.parentProjectId;
 
-  const parentProject = await getProjectsFromDB({ _id: projectId });
+  const parentProject = await ProjectModel.findById(projectId);
 
   /**Add the project requirements to design task */
-  if (parentProject.result.length) {
+  if (parentProject) {
     Object.assign(reqBody, {
-      projectRequirements: parentProject.result[0].projectRequirements,
-      parentProjectName: parentProject.result[0].projectName,
+      projectRequirements: parentProject.projectRequirements,
+      parentProjectName: parentProject.projectName,
     });
   } else {
-    throw new ErrorResponse('Cannot find parent project', 401);
+    throw new ErrorResponse('Cannot find parent project', 400);
   }
 
   const newProjectDesign = await ProjectDesignModel.create(reqBody);

@@ -39,21 +39,19 @@ export interface IProjectDesign {
   currentOwner: ICurrentOwner;
 }
 
-export interface IProjectAssemblyParentProjectRef {
-  projectId: IProject;
-  projectName: string;
-}
-
 export interface IProjectAssembly {
-  parentProject: IProjectAssemblyParentProjectRef;
+  parentProjectId: IProject;
+  parentProjectName: string;
   status: PROJECT_STATUS;
+  assemblyNotes: string;
   createdAt: Date;
   completedAt: Date;
   currentOwner: ICurrentOwner;
 }
 
 export interface IProjectNetCost {
-  projectId: IProject;
+  parentProjectId: IProject;
+  parentProjectName: string;
   componentName: string;
   componentBaseCost: number;
   componentMargin: number;
@@ -73,8 +71,9 @@ export interface IProjectPurchase {
   puchaseOrderCompletedAt: Date;
 }
 
-export interface IProjectPurchaseList {
-  projectId: IProject;
+export interface IProjectPurchases {
+  parentProjectId: IProject;
+  parentProjectName: string;
   projectPurchaseList: [IProjectPurchase];
   createdAt: Date;
   completedAt: Date;
@@ -83,8 +82,19 @@ export interface IProjectPurchaseList {
 }
 
 export interface IProjectProductionTask {
-  projectId: IProject;
+  parentProjectId: IProject;
+  parentProjectName: string;
   productionTask: string;
+}
+
+export interface IProjectTest {
+  parentProjectId: IProject;
+  parentProjectName: string;
+  testNote: string;
+  status: PROJECT_STATUS;
+  createdAt: Date;
+  completedAt: Date;
+  currentOwner: ICurrentOwner;
 }
 
 export interface IUserGovId {

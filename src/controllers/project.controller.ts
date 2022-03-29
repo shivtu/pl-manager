@@ -1,8 +1,11 @@
 import { Request, Response, NextFunction } from 'express';
+import { PROJECT_TASK_MODELS } from '../constants';
 import { asyncHandler } from '../middleware/asyncHandler';
+import { ProjectDesignModel } from '../models/ProjectDesign.schema';
 import {
   createProjectInDB,
   getProjectsFromDB,
+  getProjectTasksFromDB,
 } from '../services/project.services';
 import { PROJECT_STAGE } from '../types/enums';
 
@@ -28,5 +31,15 @@ export const createProject = asyncHandler(
 export const updateProject = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     res.send(req.body);
+  }
+);
+
+export const getProjectTasks = asyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const projectTasks = await getProjectTasksFromDB(
+      req.params.parentProjectId
+    );
+
+    res.status(200).send(projectTasks);
   }
 );

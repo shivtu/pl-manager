@@ -16,6 +16,7 @@ const ProjectSchema = new Schema<IProject>({
     type: String,
     required: [true, 'Project name is required'],
     unique: true,
+    uppercase: true,
   },
   summary: {
     type: String,

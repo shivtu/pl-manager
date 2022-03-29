@@ -5,9 +5,13 @@ import { validateCurrentOwner } from '../utils/validations';
 // import { CurrentOwnerModel } from './commonSchemas/CurrentOwnerSchema';
 
 const ProjectNetCostSchema = new Schema<IProjectNetCost>({
-  projectId: {
+  parentProjectId: {
     type: Schema.Types.ObjectId,
-    required: [true, 'Parent project is required to create a design task'],
+    required: [true, 'Parent project ID is required'],
+  },
+  parentProjectName: {
+    type: String,
+    required: [true, 'Parent project name is required'],
   },
   componentName: {
     type: String,

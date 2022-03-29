@@ -2,9 +2,13 @@ import { Schema, model } from 'mongoose';
 import { IProjectProductionTask } from '../types/types';
 
 const ProjectProductionTaskSchema = new Schema<IProjectProductionTask>({
-  projectId: {
+  parentProjectId: {
     type: Schema.Types.ObjectId,
-    required: [true, 'Parent project is required to create a design task'],
+    required: [true, 'Parent project ID is required'],
+  },
+  parentProjectName: {
+    type: String,
+    required: [true, 'Parent project name is required'],
   },
   productionTask: {
     type: String,
@@ -12,7 +16,7 @@ const ProjectProductionTaskSchema = new Schema<IProjectProductionTask>({
   },
 });
 
-export const IProjectProductionTaskModel = model(
+export const ProjectProductionTaskModel = model(
   'projectproductiontask',
   ProjectProductionTaskSchema
 );

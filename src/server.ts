@@ -1,3 +1,9 @@
+/**TODO LIST:
+ * 1. Handle upper and lower case letters for duplicate project names
+ * 2. Handle file uploads for projects
+ * 3. Add pagination
+ * 4. Cascade delete
+ */
 import express from 'express';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
