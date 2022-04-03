@@ -1,6 +1,6 @@
 import { ProjectDesignModel } from '../models/ProjectDesign.schema';
 import { createResponse } from '../utils/createResponse';
-import { IProjectDesign } from '../types/types';
+import { IProjectDesignComponent, IProjectDesign } from '../types/types';
 import { ErrorResponse } from '../utils/ErrorResponse';
 import { ProjectModel } from '../models/Project.schema';
 
@@ -28,4 +28,17 @@ export const createProjectDesignInDB = async (reqBody: IProjectDesign) => {
   const newProjectDesign = await ProjectDesignModel.create(reqBody);
 
   return createResponse(newProjectDesign);
+};
+
+export const updateProjectDesignInDB = async (
+  reqBody: IProjectDesignComponent[],
+  designTaskId: string
+) => {
+  const updatedProjectDesign = await ProjectDesignModel.findByIdAndUpdate(
+    designTaskId,
+    { $addToSet: { components: reqBody } },
+    { new: true }
+  );
+
+  return createResponse(updatedProjectDesign);
 };

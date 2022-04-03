@@ -3,6 +3,7 @@ import { asyncHandler } from '../middleware/asyncHandler';
 import {
   createProjectDesignInDB,
   getProjectDesignsFromDB,
+  updateProjectDesignInDB,
 } from '../services/projectDesign.services';
 
 export const getProjectDesign = asyncHandler(
@@ -15,6 +16,13 @@ export const getProjectDesign = asyncHandler(
 export const createProjectDesign = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     const data = await createProjectDesignInDB(req.body);
+    res.status(201).json(data);
+  }
+);
+
+export const updateProjectDesign = asyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const data = await updateProjectDesignInDB(req.body, req.params.id);
     res.status(201).json(data);
   }
 );

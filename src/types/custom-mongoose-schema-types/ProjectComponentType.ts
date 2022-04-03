@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { IProjectComponent } from '../types';
+import { IProjectDesignComponent } from '../types';
 
 export class ProjectComponentType extends mongoose.SchemaType {
   key: string;
@@ -13,8 +13,8 @@ export class ProjectComponentType extends mongoose.SchemaType {
 
   // `cast()` takes a parameter that can be anything. You need to
   // validate the provided `val` and throw a `CastError`
-  cast(val: any): IProjectComponent {
-    if (val.componentName && val.componentBaseCost && val.processes?.length) {
+  cast(val: any): IProjectDesignComponent {
+    if (val.componentName && val.componentBaseCost && val.processes) {
       return {
         componentName: val.componentName,
         componentBaseCost: val.componentBaseCost,

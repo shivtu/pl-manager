@@ -22,10 +22,10 @@ export interface IProject {
   projectRequirements: string[];
 }
 
-export interface IProjectComponent {
+export interface IProjectDesignComponent {
   componentName: string;
+  processes: string;
   componentBaseCost: number;
-  processes: string[];
 }
 
 export interface IProjectDesign {
