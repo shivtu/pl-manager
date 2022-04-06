@@ -5,6 +5,7 @@ import { UserProfileModel } from '../models/UserProfile.schema';
 import { IReqUser, UserRoleTypes } from '../types/types';
 import { ErrorResponse } from '../utils/ErrorResponse';
 import { asyncHandler } from './asyncHandler';
+import { rolesAndAccess } from '../static-data/rolesAndAccess.data';
 
 const isAuthorized = (reqPath: string, reqUser: IReqUser): boolean => {
   if (reqUser.isActive) {
@@ -19,26 +20,9 @@ const isAuthorized = (reqPath: string, reqUser: IReqUser): boolean => {
       .split(',')
       .join('');
 
-    // TODO: add the hard coded string to constants or enum file
-    const userAccessList = {
-      admin: [
-        'projects',
-        'designs',
-        'costs',
-        'assembly',
-        'production',
-        'users',
-        'purchases',
-      ],
-      designer: ['designs'],
-      production: ['production'],
-      assembly: ['assembly'],
-      purchases: ['purchases'],
-    };
-
     const userRole = reqUser.userRole;
 
-    return userAccessList[userRole].includes(accessPath);
+    return rolesAndAccess[userRole].includes(accessPath);
   }
 
   return false;
@@ -89,7 +73,7 @@ export const protect = asyncHandler(
   }
 );
 
-export const getCurrentLoggedInUer = asyncHandler(
+export const getCurrentLoggedInUser = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     //@ts-ignore
     res.send({ success: true, user: req.userProfile });

@@ -19,6 +19,7 @@ import { userProfileRouter } from './routes/userProfile.route';
 import { userRouter } from './routes/user.route';
 import { errorHandler } from './middleware/error';
 import { publicRouter } from './routes/public.route';
+import { authRouter } from './routes/auth.route';
 
 connectDB();
 
@@ -42,6 +43,8 @@ app.use(`${BASE_URI}/peenya`, projectDesignRouter);
 app.use(`${BASE_URI}/peenya`, userProfileRouter);
 app.use(`${BASE_URI}/peenya`, userRouter);
 app.use(`${BASE_URI}/peenya`, publicRouter);
+app.use(`${BASE_URI}/peenya`, authRouter);
+
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;

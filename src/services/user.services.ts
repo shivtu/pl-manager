@@ -30,6 +30,9 @@ export const createUserInDB = async (reqBody: IUser) => {
   if (!userProfile)
     throw new ErrorResponse('Unable to find the user profile', 401);
 
+  if (userProfile.userRole !== reqBody.userRole)
+    throw new ErrorResponse('User role mismatch', 400);
+
   const newUser = await UserModel.create(reqBody);
 
   return createResponse(newUser);
@@ -42,7 +45,7 @@ export const updateUserPasswordInDB = async (userId: string, reqBody: any) => {
     newPassword: false,
   });
 
-  return { sucess: true };
+  return { success: true };
 };
 
 export const resetUserPasswordInDB = async (reqBody: {
@@ -68,7 +71,7 @@ export const resetUserPasswordInDB = async (reqBody: {
     newPassword: false,
   });
 
-  return { sucess: true };
+  return { success: true };
 };
 
 const getUserByEmailFromDB = async (email: string) => {
