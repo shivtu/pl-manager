@@ -1,10 +1,10 @@
 import { Schema, model } from 'mongoose';
 import { PROJECT_STATUS } from '../types/enums';
-import { IProjectDesign } from '../types/types';
+import { IProjectDesignTask } from '../types/types';
 import { ProjectComponentType } from '../types/custom-mongoose-schema-types/ProjectComponentType';
 import { validateCurrentOwner } from '../utils/validations';
 
-const ProjectDesignSchema = new Schema<IProjectDesign>({
+const ProjectDesignTaskSchema = new Schema<IProjectDesignTask>({
   parentProjectId: {
     type: Schema.Types.ObjectId,
     required: [true, 'Parent project ID is required'],
@@ -52,4 +52,7 @@ const ProjectDesignSchema = new Schema<IProjectDesign>({
   },
 });
 
-export const ProjectDesignModel = model('projectdesign', ProjectDesignSchema);
+export const ProjectDesignTaskModel = model(
+  'projectdesigntask',
+  ProjectDesignTaskSchema
+);

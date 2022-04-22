@@ -14,7 +14,12 @@ export class ProjectComponentType extends mongoose.SchemaType {
   // `cast()` takes a parameter that can be anything. You need to
   // validate the provided `val` and throw a `CastError`
   cast(val: any): IProjectDesignComponent {
-    if (val.componentName && val.componentBaseCost && val.processes) {
+    if (
+      val.componentName &&
+      val.componentBaseCost &&
+      typeof val.componentBaseCost === 'number' &&
+      val.processes
+    ) {
       return {
         componentName: val.componentName,
         componentBaseCost: val.componentBaseCost,

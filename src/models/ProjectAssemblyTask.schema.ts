@@ -1,9 +1,9 @@
 import { Schema, model } from 'mongoose';
 import { PROJECT_STATUS } from '../types/enums';
-import { IProjectAssembly } from '../types/types';
+import { IProjectAssemblyTask } from '../types/types';
 import { validateCurrentOwner } from '../utils/validations';
 
-const ProjectAssemblychema = new Schema<IProjectAssembly>({
+const ProjectAssemblyTaskschema = new Schema<IProjectAssemblyTask>({
   parentProjectId: {
     type: Schema.Types.ObjectId,
     required: [true, 'Parent project ID is required'],
@@ -38,7 +38,7 @@ const ProjectAssemblychema = new Schema<IProjectAssembly>({
   },
 });
 
-export const ProjectAssemblyModel = model(
-  'projectassembly',
-  ProjectAssemblychema
+export const ProjectAssemblyTaskModel = model(
+  'projectassemblytask',
+  ProjectAssemblyTaskschema
 );

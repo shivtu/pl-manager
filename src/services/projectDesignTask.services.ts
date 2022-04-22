@@ -1,17 +1,27 @@
-import { ProjectDesignModel } from '../models/ProjectDesign.schema';
+import { ProjectDesignTaskModel } from '../models/ProjectDesignTask.schema';
 import { createResponse } from '../utils/createResponse';
-import { IProjectDesignComponent, IProjectDesign } from '../types/types';
+import { IProjectDesignComponent, IProjectDesignTask } from '../types/types';
 import { ErrorResponse } from '../utils/ErrorResponse';
 import { ProjectModel } from '../models/Project.schema';
 
-export const getProjectDesignsFromDB = async (reqQuery: any) => {
-  const projectDesigns = await ProjectDesignModel.find(reqQuery);
+export const getProjectDesignTaskFromDB = async (reqQuery: any) => {
+  const projectDesigns = await ProjectDesignTaskModel.find(reqQuery);
 
   return createResponse(projectDesigns);
 };
 
-export const createProjectDesignInDB = async (reqBody: IProjectDesign) => {
+export const createProjectDesignTaskInDB = async (
+  reqBody: IProjectDesignTask
+) => {
   const projectId = reqBody.parentProjectId;
+
+  const projectDesign = await ProjectDesignTaskModel.findOne({
+    parentProjectId: projectId,
+  });
+
+  // Only one design task per project allowed
+  if (Boolean(projectDesign))
+    throw new ErrorResponse('Design task already exists', 400);
 
   const parentProject = await ProjectModel.findById(projectId);
 
@@ -25,16 +35,16 @@ export const createProjectDesignInDB = async (reqBody: IProjectDesign) => {
     throw new ErrorResponse('Cannot find parent project', 400);
   }
 
-  const newProjectDesign = await ProjectDesignModel.create(reqBody);
+  const newProjectDesign = await ProjectDesignTaskModel.create(reqBody);
 
   return createResponse(newProjectDesign);
 };
 
-export const updateProjectDesignInDB = async (
+export const updateProjectDesignTaskInDB = async (
   reqBody: IProjectDesignComponent[],
   designTaskId: string
 ) => {
-  const updatedProjectDesign = await ProjectDesignModel.findByIdAndUpdate(
+  const updatedProjectDesign = await ProjectDesignTaskModel.findByIdAndUpdate(
     designTaskId,
     { $addToSet: { components: reqBody } },
     { new: true }

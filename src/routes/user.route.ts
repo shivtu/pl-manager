@@ -14,5 +14,5 @@ userRouter.route('/users/find').get(protect, getUsers);
 userRouter
   .route('/users/password/update/:userId')
   .put(protect, updateUserPassword);
-userRouter.route('/users/create').post(protect, createUser);
-userRouter.route('/users/profile/create').post(protect, createUserProfile);
+userRouter.route('/users/create').post(createUser);
+userRouter.route('/users/profile/create').post(createUserProfile);

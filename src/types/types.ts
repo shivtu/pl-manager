@@ -28,7 +28,7 @@ export interface IProjectDesignComponent {
   componentBaseCost: number;
 }
 
-export interface IProjectDesign {
+export interface IProjectDesignTask {
   parentProjectId: IProject;
   parentProjectName: string;
   components: ProjectComponentType[];
@@ -39,7 +39,7 @@ export interface IProjectDesign {
   currentOwner: ICurrentOwner;
 }
 
-export interface IProjectAssembly {
+export interface IProjectAssemblyTask {
   parentProjectId: IProject;
   parentProjectName: string;
   status: PROJECT_STATUS;
@@ -71,7 +71,7 @@ export interface IProjectPurchase {
   puchaseOrderCompletedAt: Date;
 }
 
-export interface IProjectPurchases {
+export interface IProjectPurchaseTask {
   parentProjectId: IProject;
   parentProjectName: string;
   projectPurchaseList: [IProjectPurchase];
@@ -87,7 +87,7 @@ export interface IProjectProductionTask {
   productionTask: string;
 }
 
-export interface IProjectTest {
+export interface IProjectTestTask {
   parentProjectId: IProject;
   parentProjectName: string;
   testNote: string;

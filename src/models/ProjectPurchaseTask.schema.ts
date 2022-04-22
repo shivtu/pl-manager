@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose';
 import { PROJECT_STATUS } from '../types/enums';
-import { IProjectPurchase, IProjectPurchases } from '../types/types';
+import { IProjectPurchase, IProjectPurchaseTask } from '../types/types';
 import { validateCurrentOwner } from '../utils/validations';
 
 const validatePurchaseList = (list: IProjectPurchase[]) => {
@@ -21,7 +21,7 @@ const validatePurchaseList = (list: IProjectPurchase[]) => {
   return false;
 };
 
-const ProjectPurchasesSchema = new Schema<IProjectPurchases>({
+const ProjectPurchaseTaskSchema = new Schema<IProjectPurchaseTask>({
   parentProjectId: {
     type: Schema.Types.ObjectId,
     required: [true, 'Parent project ID is required'],
@@ -53,7 +53,7 @@ const ProjectPurchasesSchema = new Schema<IProjectPurchases>({
   },
 });
 
-export const ProjectPurchasesModel = model(
-  'projectpurchases',
-  ProjectPurchasesSchema
+export const ProjectPurchaseTaskModel = model(
+  'projectpurchasetask',
+  ProjectPurchaseTaskSchema
 );

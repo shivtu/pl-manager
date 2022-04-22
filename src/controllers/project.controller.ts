@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { PROJECT_TASK_MODELS } from '../constants';
 import { asyncHandler } from '../middleware/asyncHandler';
-import { ProjectDesignModel } from '../models/ProjectDesign.schema';
+import { ProjectDesignTaskModel } from '../models/ProjectDesignTask.schema';
 import {
   createProjectInDB,
   getProjectsFromDB,

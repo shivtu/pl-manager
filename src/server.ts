@@ -14,7 +14,7 @@ import { connectDB } from './db';
 import { projectRouter } from './routes/project.route';
 import { BASE_URI } from './constants';
 import cors from 'cors';
-import { projectDesignRouter } from './routes/projectDesign.route';
+import { projectDesignTaskRouter } from './routes/projectDesignTask.route';
 import { userProfileRouter } from './routes/userProfile.route';
 import { userRouter } from './routes/user.route';
 import { errorHandler } from './middleware/error';
@@ -39,7 +39,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 app.use(`${BASE_URI}/peenya`, projectRouter);
-app.use(`${BASE_URI}/peenya`, projectDesignRouter);
+app.use(`${BASE_URI}/peenya`, projectDesignTaskRouter);
 app.use(`${BASE_URI}/peenya`, userProfileRouter);
 app.use(`${BASE_URI}/peenya`, userRouter);
 app.use(`${BASE_URI}/peenya`, publicRouter);

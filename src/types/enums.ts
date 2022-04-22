@@ -22,8 +22,10 @@ export enum PROJECT_TYPE {
 }
 
 export enum GOV_DOC {
-  ADHAAR_CARD = 'adhaar card',
+  ADHAAR = 'adhaar',
+  PASSPORT = 'passport',
   DRIVING_LICENSE = 'driving license',
   PAN_CARD = 'pan card',
-  PASSPORT = 'passport',
+  RATION_CARD = 'ration card',
+  OTHERS = 'others',
 }

@@ -1,28 +1,28 @@
 import { Request, Response, NextFunction } from 'express';
 import { asyncHandler } from '../middleware/asyncHandler';
 import {
-  createProjectDesignInDB,
-  getProjectDesignsFromDB,
-  updateProjectDesignInDB,
-} from '../services/projectDesign.services';
+  createProjectDesignTaskInDB,
+  getProjectDesignTaskFromDB,
+  updateProjectDesignTaskInDB,
+} from '../services/projectDesignTask.services';
 
-export const getProjectDesign = asyncHandler(
+export const getProjectDesignTask = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
-    const data = await getProjectDesignsFromDB(req.query);
+    const data = await getProjectDesignTaskFromDB(req.query);
     res.status(200).json(data);
   }
 );
 
-export const createProjectDesign = asyncHandler(
+export const createProjectDesignTask = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
-    const data = await createProjectDesignInDB(req.body);
+    const data = await createProjectDesignTaskInDB(req.body);
     res.status(201).json(data);
   }
 );
 
-export const updateProjectDesign = asyncHandler(
+export const updateProjectDesignTask = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
-    const data = await updateProjectDesignInDB(req.body, req.params.id);
+    const data = await updateProjectDesignTaskInDB(req.body, req.params.id);
     res.status(201).json(data);
   }
 );
