@@ -14,3 +14,20 @@ export const PROJECT_TASK_MODELS = [
   ProjectAssemblyTaskModel,
   ProjectTestTaskModel,
 ];
+export const ROUTES = {
+  routes: {
+    create: {},
+    projects: {
+      create: 'create_project',
+      read: 'find_projects',
+      update: 'update_project',
+      delete: 'delete_project',
+    },
+    designs: {
+      create: 'create_design',
+      read: 'find_design',
+      update: 'update_design',
+      delete: 'delete_design',
+    },
+  },
+};
