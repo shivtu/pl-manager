@@ -1,5 +1,5 @@
 /**TODO LIST:
- * 1. Handle upper and lower case letters for duplicate project names
+ * 1. Handle upper and lower case letters for duplicate project names - DONE
  * 2. Handle file uploads for projects
  * 3. Add pagination
  * 4. Cascade delete
@@ -20,6 +20,7 @@ import { userRouter } from './routes/user.route';
 import { errorHandler } from './middleware/error';
 import { publicRouter } from './routes/public.route';
 import { authRouter } from './routes/auth.route';
+import { enquiryRouter } from './routes/enquiry.route';
 
 connectDB();
 
@@ -44,6 +45,7 @@ app.use(`${BASE_URI}/peenya`, userProfileRouter);
 app.use(`${BASE_URI}/peenya`, userRouter);
 app.use(`${BASE_URI}/peenya`, publicRouter);
 app.use(`${BASE_URI}/peenya`, authRouter);
+app.use(`${BASE_URI}/peenya`, enquiryRouter);
 
 app.use(errorHandler);
 

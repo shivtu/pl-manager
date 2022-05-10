@@ -9,6 +9,7 @@ export const rolesAndAccess = {
     'purchases',
     'public',
     'auth',
+    'enquiry',
   ],
   designer: ['designs', 'public', 'auth'],
   production: ['production', 'public', 'auth'],

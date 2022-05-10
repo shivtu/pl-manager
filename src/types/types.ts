@@ -9,6 +9,20 @@ export interface ICurrentOwner {
   userPhoneNumber: number;
 }
 
+export interface IEnquiry {
+  customerName: string;
+  customerPhone: number;
+  customerEmail: string;
+  customerAddress?: string;
+  existingCustomer: boolean;
+  shortDescription: string;
+  description: string;
+  createdAt: Date;
+  createdBy: ICurrentOwner;
+  currentOwner: ICurrentOwner;
+  approvedBy?: ICurrentOwner;
+}
+
 export interface IProject {
   projectName: string;
   summary: string;
@@ -20,6 +34,9 @@ export interface IProject {
   status: PROJECT_STATUS;
   stage: PROJECT_STAGE;
   projectRequirements: string[];
+  customerId: ICustomer;
+  customerName: String;
+  customerPhone: Number;
 }
 
 export interface IProjectDesignComponent {
@@ -154,4 +171,14 @@ export interface IReqUser {
   _id: string;
   userEmail: string;
   isActive: boolean;
+}
+
+export interface ICustomer {
+  customerName: string;
+  customerPhone: number;
+  customerEmail: string;
+  customerAddress?: string;
+  customerOrganization: string;
+  projects: string[];
+  createdAt: Date;
 }
