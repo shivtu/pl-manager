@@ -12,6 +12,10 @@ const validaterequirementList = (requirementList: string[]) => {
 };
 
 const ProjectSchema = new Schema<IProject>({
+  enquiryId: {
+    type: Schema.Types.ObjectId,
+    required: false,
+  },
   customerId: {
     type: Schema.Types.ObjectId,
     required: true,

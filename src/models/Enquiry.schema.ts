@@ -3,6 +3,10 @@ import { IEnquiry } from '../types/types';
 import { validateCurrentOwner } from '../utils/validations';
 
 const EnquirySchema = new Schema<IEnquiry>({
+  customerId: {
+    type: Schema.Types.ObjectId,
+    required: true,
+  },
   customerName: {
     type: String,
     required: true,
@@ -18,7 +22,6 @@ const EnquirySchema = new Schema<IEnquiry>({
   customerAddress: {
     type: String,
   },
-  existingCustomer: { type: Boolean },
   shortDescription: {
     type: String,
     required: true,
@@ -43,7 +46,7 @@ const EnquirySchema = new Schema<IEnquiry>({
   },
   approvedBy: {
     type: Object,
-    required: true,
+    required: false,
     validate: validateCurrentOwner,
   },
 });

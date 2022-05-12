@@ -10,6 +10,7 @@ export const rolesAndAccess = {
     'public',
     'auth',
     'enquiry',
+    'customers',
   ],
   designer: ['designs', 'public', 'auth'],
   production: ['production', 'public', 'auth'],

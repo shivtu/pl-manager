@@ -21,6 +21,7 @@ import { errorHandler } from './middleware/error';
 import { publicRouter } from './routes/public.route';
 import { authRouter } from './routes/auth.route';
 import { enquiryRouter } from './routes/enquiry.route';
+import { customerRouter } from './routes/customers.route';
 
 connectDB();
 
@@ -46,6 +47,7 @@ app.use(`${BASE_URI}/peenya`, userRouter);
 app.use(`${BASE_URI}/peenya`, publicRouter);
 app.use(`${BASE_URI}/peenya`, authRouter);
 app.use(`${BASE_URI}/peenya`, enquiryRouter);
+app.use(`${BASE_URI}/peenya`, customerRouter);
 
 app.use(errorHandler);
 

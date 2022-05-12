@@ -10,11 +10,11 @@ export interface ICurrentOwner {
 }
 
 export interface IEnquiry {
+  customerId: ICustomer;
   customerName: string;
   customerPhone: number;
   customerEmail: string;
   customerAddress?: string;
-  existingCustomer: boolean;
   shortDescription: string;
   description: string;
   createdAt: Date;
@@ -24,6 +24,7 @@ export interface IEnquiry {
 }
 
 export interface IProject {
+  enquiryId: IEnquiry;
   projectName: string;
   summary: string;
   description?: string;

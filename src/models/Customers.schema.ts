@@ -9,10 +9,12 @@ const CustomersSchema = new Schema<ICustomer>({
   customerPhone: {
     type: Number,
     required: true,
+    unique: true,
   },
   customerEmail: {
     type: String,
     required: true,
+    unique: true,
   },
   customerAddress: {
     type: String,
